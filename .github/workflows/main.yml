@@ -1,0 +1,51 @@
+name: CI/CD for Weather App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run HTML Validator
+      uses: Cyb3r-Jak3/html5validator-action@v1.0.2
+
+    - name: Run CSS Lint
+      run: |
+        sudo apt install -y csslint
+        csslint ./style.css || true
+
+    - name: Run JavaScript Lint (ESLint)
+      run: |
+        npm install -g eslint
+        eslint ./script.js || true
+
+  codeql-analysis:
+    name: CodeQL Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: javascript
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
