@@ -14,13 +14,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # 🔥 Removed the broken HTML validator
-    # 🔥 Instead, only lint CSS and JS
+    - name: Install CSS Lint
+      run: |
+        npm install -g csslint
 
     - name: Run CSS Lint
       run: |
-        sudo apt update
-        sudo apt install -y csslint
         csslint ./style.css || true
 
     - name: Run JavaScript Lint (ESLint)
