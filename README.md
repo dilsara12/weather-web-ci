@@ -28,14 +28,6 @@ The app is deployed using **GitHub Pages** and integrated with a **CI/CD pipelin
 
 ---
 
-## 📷 Screenshot  
-📌 Add a screenshot of your app, save it as `Screenshot1.png` in your repo.  
-It will automatically display above.
-
----
-
-
-
 ---
 
 ## 🚀 Future Improvements  
